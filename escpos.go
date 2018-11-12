@@ -27,8 +27,8 @@ func (e *Escpos) Feed() {
 	e.dev.Write([]byte{lf})
 }
 
-func (e *Escpos) Write(s string) {
-	str, err := e.enc.String(s)
+func (e *Escpos) Write(text string) {
+	str, err := e.enc.String(text)
 
 	if err != nil {
 		panic(err)

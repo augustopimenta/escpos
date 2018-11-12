@@ -9,8 +9,8 @@ const (
 	FontB fontfamily = 1
 )
 
-func (e *Escpos) Font(f fontfamily) {
-	e.dev.Write([]byte{esc, 0x4D, byte(f)})
+func (e *Escpos) Font(family fontfamily) {
+	e.dev.Write([]byte{esc, 0x4D, byte(family)})
 }
 
 type fontalign byte
@@ -21,8 +21,8 @@ const (
 	AlignRight  fontalign = 2
 )
 
-func (e *Escpos) FontAlign(a fontalign) {
-	e.dev.Write([]byte{esc, 0x61, byte(a)})
+func (e *Escpos) FontAlign(align fontalign) {
+	e.dev.Write([]byte{esc, 0x61, byte(align)})
 }
 
 func (e *Escpos) FontSize(width, height uint8) {

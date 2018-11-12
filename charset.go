@@ -13,8 +13,8 @@ const (
 	CharsetPC858 charset = 19
 )
 
-func (e *Escpos) Charset(c charset) {
-	switch c {
+func (e *Escpos) Charset(charset charset) {
+	switch charset {
 	case CharsetPC437:
 		e.enc = charmap.CodePage437.NewEncoder()
 	case CharsetPC850:
@@ -29,7 +29,7 @@ func (e *Escpos) Charset(c charset) {
 		e.enc = charmap.CodePage865.NewEncoder()
 	}
 
-	e.dev.Write([]byte{esc, 0x74, byte(c)})
+	e.dev.Write([]byte{esc, 0x74, byte(charset)})
 }
 
 func boolToByte(b bool) byte {
