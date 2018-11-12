@@ -1,5 +1,7 @@
 package escpos
 
+import "fmt"
+
 type fontfamily byte
 
 const (
@@ -8,26 +10,33 @@ const (
 )
 
 func (e *Escpos) Font(f fontfamily) {
-	font := 0
+	e.dev.Write([]byte{esc, 0x4D, byte(f)})
+}
 
-	switch f {
-	case FontA:
-		font = 0
-	case FontB:
-		font = 1
+type fontalign byte
+
+const (
+	AlignLeft   fontalign = 0
+	AlignCenter fontalign = 1
+	AlignRight  fontalign = 2
+)
+
+func (e *Escpos) FontAlign(a fontalign) {
+	e.dev.Write([]byte{esc, 0x61, byte(a)})
+}
+
+func (e *Escpos) FontSize(width, height uint8) {
+	if width >= 1 && width <= 8 && height >= 1 && height <= 8 {
+		e.dev.Write([]byte{esc, 0x21, ((width - 1) << 4) | (height - 1)})
+	} else {
+		panic(fmt.Sprintf("Wrong font size: (%d x %d)", width, height))
 	}
-
-	e.dev.Write([]byte{esc, 0x4D, byte(font)})
 }
 
-func (e *Escpos) FontSize() {
-
+func (e *Escpos) FontUnderline(on bool) {
+	e.dev.Write([]byte{esc, 0x2D, boolToByte(on)})
 }
 
-func (e *Escpos) FontUnderline() {
-
-}
-
-func (e *Escpos) FontBold() {
-
+func (e *Escpos) FontBold(on bool) {
+	e.dev.Write([]byte{esc, 0x45, boolToByte(on)})
 }

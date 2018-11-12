@@ -31,3 +31,12 @@ func (e *Escpos) Charset(c charset) {
 
 	e.dev.Write([]byte{esc, 0x74, byte(c)})
 }
+
+func boolToByte(b bool) byte {
+	var r byte
+	if b {
+		r = byte(1)
+	}
+
+	return r
+}
