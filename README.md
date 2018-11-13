@@ -26,12 +26,22 @@ func main() {
 
 	defer f.Close()
 
-	ec := escpos.New(f)
-	ec.Init()
-	ec.Font(escpos.FontB)
-	ec.FontAlign(escpos.AlignCenter)
-	ec.Write("Hello World!")
-	ec.Feed()
-	ec.FullCut()
+	p := escpos.New(f)
+	p.Init()
+
+	p.FontSize(2, 2)
+	p.Font(escpos.FontB)
+	p.FontAlign(escpos.AlignCenter)
+	p.Writeln("Hello World!")
+	p.Feed()
+
+	p.FontSize(1, 1)
+	p.Font(escpos.FontA)
+	p.FontAlign(escpos.AlignLeft)
+	p.Writeln("Lorem ipsum primis potenti in purus vestibulum amet enim, fames orci dapibus tempor...")
+
+	p.FeedN(10)
+
+	p.FullCut()
 }
 ```
