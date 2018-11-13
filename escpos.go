@@ -27,10 +27,17 @@ func (e *Escpos) Feed() {
 	e.dev.Write([]byte{lf})
 }
 
+// Feed skip n lines of paper
+func (e *Escpos) FeedN(n byte) {
+	e.dev.Write([]byte{esc, 0x64, n})
+}
+
+// SelfTest start self test of printer
 func (e *Escpos) SelfTest() {
 	e.dev.Write([]byte{gs, 0x28, 0x41, 0x02, 0x00, 0x00, 0x02})
 }
 
+// Write print text
 func (e *Escpos) Write(text string) {
 	str, err := e.enc.String(text)
 
@@ -41,6 +48,7 @@ func (e *Escpos) Write(text string) {
 	e.dev.Write([]byte(str))
 }
 
+// New create new Escpos struct and set default enconding
 func New(dev io.ReadWriter) *Escpos {
 	escpos := &Escpos{dev: dev}
 	escpos.Charset(CharsetPC437)
