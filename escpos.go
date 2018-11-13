@@ -48,6 +48,10 @@ func (e *Escpos) Write(text string) {
 	e.dev.Write([]byte(str))
 }
 
+func (e *Escpos) Writeln(text string) {
+	e.Write(text + "\n")
+}
+
 // New create new Escpos struct and set default enconding
 func New(dev io.ReadWriter) *Escpos {
 	escpos := &Escpos{dev: dev}
