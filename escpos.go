@@ -28,7 +28,7 @@ func (e *Escpos) Feed() {
 }
 
 func (e *Escpos) SelfTest() {
-	e.dev.Write([]byte{gs, 0x28, 0x41})
+	e.dev.Write([]byte{gs, 0x28, 0x41, 0x02, 0x00, 0x00, 0x02})
 }
 
 func (e *Escpos) Write(text string) {
