@@ -27,7 +27,7 @@ func (e *Escpos) FontAlign(align fontalign) {
 
 func (e *Escpos) FontSize(width, height uint8) {
 	if width >= 1 && width <= 8 && height >= 1 && height <= 8 {
-		e.dev.Write([]byte{esc, 0x21, ((width - 1) << 4) | (height - 1)})
+		e.dev.Write([]byte{gs, 0x21, ((width - 1) << 4) | (height - 1)})
 	} else {
 		panic(fmt.Sprintf("Wrong font size: (%d x %d)", width, height))
 	}
